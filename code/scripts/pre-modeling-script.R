@@ -1,5 +1,5 @@
 # loading data
-credit <- read.csv("../../data/Credit.csv")
+credit <- read.csv("data/datasets/Credit.csv")
 credit <- credit[,-1]
 
 # dummy out categorical variables
@@ -12,4 +12,4 @@ new_credit <- cbind(temp_credit[ ,-1], Balance = credit$Balance)
 scaled_credit <- scale(new_credit, center = TRUE, scale = TRUE)
 
 # export scaled data
-write.csv(scaled_credit, file = "path/of/processed/data/scaled-credit.csv")
+write.csv(scaled_credit, file = "data/datasets/scaled-credit.csv")
