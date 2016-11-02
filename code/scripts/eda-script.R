@@ -1,5 +1,5 @@
 # Load data set
-credit <- read.csv('data/Credit.csv', header = TRUE)
+credit <- read.csv('data/datasets/Credit.csv', header = TRUE)
 credit$X <- NULL
 
 # Load necessary packages
@@ -63,7 +63,7 @@ colnames(ethnicity_df) <- c('Ethnicity', 'Frequency', 'Relative Frequency')
 
 
 # Sink to Eda Output file
-sink('data/eda-output.txt')
+sink('data/output/eda-output.txt')
 cat('Quantitative Variable Information\n')
 cat('\nSummary of Balance\n')
 summary(credit$Balance)
@@ -217,7 +217,7 @@ corr_matrix <- cor(quan_df)
 print(corr_matrix)
 correlation_matrix[lower.tri(correlation_matrix)] <- ''
 
-sink('data/eda-correlation-matrix.txt')
+sink('data/output/eda-correlation-matrix.txt')
 print(corr_matrix)
 sink()
 
@@ -251,3 +251,4 @@ ggplot(data = credit) +
                fill = c('blue','red', 'yellow'))+
   ggtitle('Conditional Boxplot of Balance by Ethnicity')
 dev.off()
+
