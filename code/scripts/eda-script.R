@@ -30,7 +30,8 @@ range <- c(max(balance)-min(balance),
            max(cards)-min(cards),
            max(age)-min(age),
            max(education)-min(education))
-quan_df <- data.frame(categories, sd, iqr, range)
+quant <- data.frame(credit$Income, credit$Limit, credit$Rating, credit$Cards,
+                    credit$Age, credit$Education, credit$Balance)
 
 # Qualitative Variable Information Tables
 # Gender
@@ -80,7 +81,7 @@ summary(credit$Age)
 cat('\nSummary of Education\n')
 summary(credit$Education)
 cat('\nSummary of Other Descriptive Statistics\n')
-print(quan_df)
+print(quant)
 cat('\n\nQualitative Variable Tables\n')
 cat('\nGender Table\n')
 print(gender_df)
@@ -213,9 +214,10 @@ dev.off()
 
 
 # Correlations Matrix between Quantitative Variables
-corr_matrix <- cor(quan_df)
-print(corr_matrix)
-corr_matrix[lower.tri(corr_matrix)] <- ''
+quant <- data.frame(credit$Income, credit$Limit, credit$Rating, credit$Cards,
+                    credit$Age, credit$Education, credit$Balance)
+correlation_matrix <- cor(quant)
+correlation_matrix[lower.tri(correlation_matrix)] <- ''
 
 sink('../../data/output/eda-correlation-matrix.txt')
 print(corr_matrix)
@@ -223,7 +225,7 @@ sink()
 
 # Scatterplot Matrix
 png('../../images/scatterplot-matrix.png')
-pairs(quan_df,pch = 16)
+pairs(quant,pch = 16)
 dev.off()
 
 # Boxplots relating Balance to Each of the Qualitative Variables
