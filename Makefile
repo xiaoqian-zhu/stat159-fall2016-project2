@@ -8,8 +8,8 @@ all: eda regressions report
 data:
 	curl http://www-bcf.usc.edu/~gareth/ISL/Credit.csv -o data/datasets/Credit.csv
 
-premodel: code/scripts/pre-modelling-script.R data/datsets/Credit.csv
-	cd code/scripts; Rscript pre-modelling-script.R
+premodel: code/scripts/pre-modeling-script.R data/datsets/Credit.csv
+	cd code/scripts; Rscript pre-modeling-script.R
 
 traintest: code/scripts/training-testing-sets.R data/datasets/scaled-credit.csv
 	cd code/scripts; Rscript training-testing-sets.R
@@ -28,8 +28,8 @@ ols: code/scripts/ols-script.R data/datasets/scaled-credit.csv data/train-test-s
 ridge: code/scripts/ridge-script.R data/datasets/scaled-credit.csv data/train-test-sets.RData code/functions/mse-function.R
 	cd code/scripts; Rscript ridge-script.R
 
-lasso: code/scripts/lasso-script.R data/datasets/scaled-credit.csv data/train-test-sets.RData code/functions/mse-function.R
-	cd code/scripts; Rscript lasso-script.R
+lasso: code/scripts/lasso-regression.R data/datasets/scaled-credit.csv data/train-test-sets.RData code/functions/mse-function.R
+	cd code/scripts; Rscript lasso-regression.R
 
 pcr: code/scripts/pcr-script.R data/datasets/scaled-credit.csv data/train-test-sets.RData code/functions/mse-function.R
 	cd code/scripts; Rscript pcr-script.R
