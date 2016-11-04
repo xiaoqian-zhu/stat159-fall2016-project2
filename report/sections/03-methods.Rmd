@@ -1,0 +1,35 @@
+# Methods
+
+
+## Ordinary Least Squares Regression (OLS)
+We first apply a multiple linear regression analysis on the data set `scaled_credit.csv`. In order to find the relationship between `Balance` and those financial and demogrphic variables, including `Age`, `Limit` and `Education`, we set up a linear model, which looks like this: $$Sales \approx \beta_0 + \beta_1*Income+ \beta_2*Limit + \dots + \beta_11*EthnicityCaucasian$$ where $\beta_0$ is the intercept term and the $\beta_is$ describe how each financial or demographic variable affects the sales. In this case, those $\beta$ coefficients are the least squares estimate of the actual values, estimated by minimizing the sum of the residual squared errors. Specifically, we are minimizing $$RSS = \sum {i=1}^{n}\left (y _{i}-\beta_0- \sum{j=1}^{p}\beta_jx_{ij} \right )^{2}$$, and minimizing this value over the $\hat{\beta_i}s$ results in $$\hat{\beta} = (X^TX)^{-1}X^TY$$ where Y is a vector with all the y values. [References from Wikipedia](https://en.wikipedia.org/wiki/Residual_sum_of_squares).
+
+Bascially, minimizing the RSS would be minimizing the error of the prediction. Accoding to the Gauss-Markov Theorem, they are the best linear unbiased estimators in this model. 
+
+# Shrinkage Methods
+## Ridge Regression
+
+
+Ridge regression is a shrinkage method that constrain the coefficient estimates to help to reduce variance and thus get better estimation. In ridge regression, we are minimizing $$RSS + \lambda\sum_{j=1}^{p}\beta_j^{2}$$, comparing to the OLS one, you can see the ridge regression has a term $\lambda\sum_{j=1}^{p}\beta_j^{2}$, which is called _shrinkage penalty_, which has the effect of shrinking the estimates of coefficients towards zero. $\lambda$ in this term is called _tuning parameter_, which serves to control the relative impact on the regression coefficient estimates. When $\lambda = 0$, the penalty term will have no effect, and the ridge regression will produce the least squares estimates. However, when $\lambda$ approaches infnity, the impact of the shrinkage penalty will grow, and hte ridge regression coefficient estimates will approach zero. 
+
+## The Lasso
+
+
+The _lasso_ is also a shrinkage method and it is a relatively recent alternative to ridge regression that overcomes ridge's disadvantage, which we will explain specifically in the later section. Thus, the _lasso_ is quite similar to ridge regression. The lasso coefficients minimize the quantity: $$\sum_{i=1}^{n}(y_i-\beta_0-\sum_{j=1}^{p}\beta_jx_{ij})^2+\lambda\sum_{j=1}^{p}|\beta_j|$$. As with ridge regression, the lasso shrinks the coefficient estimates towards zero. However, in the case of the lasso, the penalty has the effect of forcing some of the coefficient estimates to be exactly equal to zero when the tuning parameter is sufficiently large. Hence, much like best subset selection, the lasso performs variable selection. As a result, models generated from the lasso are generally much easier to interpret than those produced by ridge regression. 
+
+Additionally, to define a best $\lambda$ for the minimization, we are going to use cross validation, which is model validation technique for assessing how the results of statistical analysis will generalize to an independent data set. In a prediction problem, a model is usually given a dataset of known data on which training data set is run , and a testing dataset against which the model is tested. The goal of cross validation is to define a dataset to "test" the model in the training phase, in order to limit problems like overfitting.
+
+# Dimension Reduction Methods
+## Principal Components Regression
+
+
+Principal components regression (PCR) is a dimension reduction technique for regression, involves constructing the first $\M$ principal components, $\Z_1 + \dots + \Z_M*$, and then using these components as the predictors in a linear regression model that is fit using least squares. The key idea is that often a small number of principal components suffice to explian most of the variability in the data, as well as the relationship with the response. This model is better than using OLS, because we can avoid overfitting in this model, and the model will not pick up any unnecessary variability. In PCR, the variance will increase as the number of variables in the model increases, while the bias will decrease. 
+
+Furthermore, the number of principal components,$\M$, is also chosen by cross-validation. It is also crucial to standardize the variables when running PCR, because the scale of each variable may effect variance and thus affect the fit of the model produced. 
+
+# Partial Least Squares
+
+
+Partial least squares (PLS), is a supervised alternative to PCR. Like PCR, PLS is a dimension reduction method, while unlike PCR, PLS makes uses of the response Y in order to identify new features that not only approximate the old features well, but also that are related to the response. Roughly speaking, the PLS approach attempts to find directions that help explain both the response and the predictors.
+
+We now describe how the first PLS direction is computed. After standardizing the $p$ predictors, PLS computes the first direction $Z_1$ by setting each $\phi_{j1}$ in  equal to the coefficient from the simple linear regression of $Y$ onto $X_j$. One can show that this coefficient is proportional to the correlation between $Y$ and $X_j$. Hence, in computing $$Z_1=\sum_{j=1}^p\phi_{j1}X_j$$, PLS places the highest weight on the variables that are most strongly related to the response.
