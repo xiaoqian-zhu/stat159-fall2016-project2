@@ -3,9 +3,9 @@
 
 This is the table of regression coefficients for all methods. 
 ```{r, results = "asis", echo = FALSE, message = FALSE, warning = FALSE, fig.align = "center"}
-ridge_coef_mat <- as.matrix(ridge_coef_full)
-coef_matrix <- matrix(data =c(as.numeric(ols_reg$coefficients),as.numeric(ridge_coef_mat),
-                                as.numeric(lasso_coef_full),0, 
+ridge_matrix_coef <- as.matrix(ridge_coefficients)
+coef_matrix <- matrix(data =c(as.numeric(ols_regression$coefficients),as.numeric(ridge_matrix_coef),
+                                as.numeric(lasso_coefficients),0, 
                                   as.numeric(pc_coef_full), 0, 
                                   as.numeric(pls_coef_full)), 
                                   nrow = 12, ncol = 5)
@@ -24,7 +24,7 @@ options(xtable.comment = FALSE,
         xtable.table.placement = "H")
 load("../data/output/ols-model-stats.RData")
 load("../data/output/ols-regression.RData")
-print(xtable(ols.summary$coefficients, caption = 'OLS Coefficients',digits = c(0,5,5,5,5)), comment = FALSE)
+print(xtable(ols_summary$coefficients, caption = 'OLS Coefficients',digits = c(0,5,5,5,5)), comment = FALSE)
 ```
 
 OLS is the benchmark for the comparsion between different models, thus we also use ten-fold ten-fold cross-validation ito build the OLS model, by first using the train set to fit the model, calculate MSE in the test set and, then fit the model selected to the entire data set. From the OLS regression results, we find that some coefficients have a very big p-value, thus they are not statistically significant. Therefore, Education, Gender, Marital Status and Ethinicity do not seem to have a relationship with Balance. Furthermore, we also find that some statistically significant regressors with small coefficients, which means that has very small economic effect on Balance. Thus, the main factors that may have relationshio with Balance are Income, Limit and Rating.
@@ -34,9 +34,9 @@ OLS is the benchmark for the comparsion between different models, thus we also u
 ```{r results= 'asis', echo = FALSE}
 load("../data/output/ridge-model-stats.RData")
 load("../data/output/ridge-regression.RData")
-ridge_coeff <- as.matrix(ridge.fitted.coef)
-colnames(ridge_coeff) <- "Estimates"
-print(xtable(ridge_coeff, caption = 'Ridge Coefficients',digits = c(0,5)), comment = FALSE)
+ridge_matrix_coef <- as.matrix(ridge_coefficients)
+colnames(ridge_matrix_coef) <- "Estimates"
+print(xtable(ridge_matrix_coef, caption = 'Ridge Coefficients',digits = c(0,5)), comment = FALSE)
 ```
 
 In this Ridge regression, we found that results in the smallest validation error is $\lambda$ = `r best.lambda.ridge`. This tuning parameter $\lambda$ is relatively small. Comparing ridge regression coefficients with OLS coefficients, we find that the estimation with ridge is very similar to that of OLS but coefficients, expect the Rating coefficient, is a little bit smaller in ridge, mainly because of the shrinkage effect. It is interesting that the Rating coefficient is larger in ridge regression.
@@ -45,9 +45,9 @@ In this Ridge regression, we found that results in the smallest validation error
 ```{r results= 'asis', echo = FALSE}
 load("../data/output/lasso-model-stats.RData")
 load("../data/output/lasso-regression.RData")
-lasso_coeff <- as.matrix(lasso.fitted.coef)
-colnames(lasso_coeff) <- "Estimates"
-print(xtable(lasso_coeff, caption = 'Lasso Coefficients', digits = c(0,5)), comment = FALSE)
+lasso_matrix_coef <- as.matrix(lasso_coefficients)
+colnames(lasso_matrix_coef) <- "Estimates"
+print(xtable(lasso_matrix_coef, caption = 'Lasso Coefficients', digits = c(0,5)), comment = FALSE)
 ```
 
 Lasso is an improved alternative to ridge, as it adds the incentive to render statistically insignificant estimate to 0 by performing both variable slection and only fitting the data to the variables that fit the MSE criteria.  Here, the $\lambda$ we find is $\lambda$ = `r best.lambda.lasso`. Moreover, six of the coefficients have been set to zero, the rest of the lasso coefficients also tend to be smaller than those from OLS. This is due to the added restriction based on ridge regression. 
@@ -57,12 +57,12 @@ Lasso is an improved alternative to ridge, as it adds the incentive to render st
 ```{r results= 'asis', echo = FALSE}
 load("../data/output/pcr-model-stats.RData")
 load("../data/output/pcr-regression.RData")
-pcr_coeff <- as.matrix(pcr.fitted.coef)
-dimnames(pcr_coeff) <- list(rownames(pcr_coeff, do.NULL = FALSE, prefix = "row"),
-                            colnames(pcr_coeff, do.NULL = FALSE, prefix = "col"))
-colnames(pcr_coeff) <- "Estimates"
-rownames(pcr_coeff) <- c("Income", "Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
-print(xtable(pcr_coeff, caption = 'PCR Coefficients',digits = c(0,5)), comment = FALSE)
+pcr_matrix_coef <- as.matrix(pcr_coef_full)
+dimnames(pcr_matrix_coef) <- list(rownames(pcr_matrix_coef, do.NULL = FALSE, prefix = "row"),
+                            colnames(pcr_matrix_coef, do.NULL = FALSE, prefix = "col"))
+colnames(pcr_matrix_coef) <- "Estimates"
+rownames(pcr_matrix_coef) <- c("Income", "Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
+print(xtable(pcr_matrix_coef, caption = 'PCR Coefficients',digits = c(0,5)), comment = FALSE)
 ```
 
 In this case, we find that the best M is `r best.m.pcr`. Comparing coefficients between PCR and OLS, we find that they are very similar to each other, except Limit and Rating, while generally, the coefficients of PCR tends to be smaller than that of OLS. Additionally, the coefficients of PCR is very similar to ridge and PLSR regression. 
@@ -71,12 +71,12 @@ In this case, we find that the best M is `r best.m.pcr`. Comparing coefficients 
 ```{r results= 'asis', echo = FALSE}
 load("../data/output/plsr-model-stats.RData")
 load("../data/output/plsr-regression.RData")
-plsr_coeff <- as.matrix(plsr.fitted.coef)
-dimnames(plsr_coeff) <- list(rownames(plsr_coeff, do.NULL = FALSE, prefix = "row"),
-                             colnames(plsr_coeff, do.NULL = FALSE, prefix = "col"))
-colnames(plsr_coeff) <- "Estimates"
-rownames(plsr_coeff) <- c("Income", "Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
-print(xtable(plsr_coeff, caption = 'PLS Coefficients',digits = c(0,5)), comment = FALSE)
+pls_matrix_coef <- as.matrix(pls_coef_full)
+dimnames(pls_matrix_coef) <- list(rownames(pls_matrix_coef, do.NULL = FALSE, prefix = "row"),
+                             colnames(pls_matrix_coef, do.NULL = FALSE, prefix = "col"))
+colnames(pls_matrix_coef) <- "Estimates"
+rownames(pls_matrix_coef) <- c("Income", "Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
+print(xtable(pls_matrix_coef, caption = 'PLS Coefficients',digits = c(0,5)), comment = FALSE)
 ```
 
 PLS is a supervised alternative to PCR. By comparing validation errors for different Ms, we find the best M is `r best.m.plsr`. Comparing coefficients of PLS to OLS coefficients, we can see they are quite different to each other. 
