@@ -1,7 +1,7 @@
 # Training and Testing Sets: this script is used for building the training and test sets. 
 
 # Load the data
-scaled_credit <- read.csv('data/datasets/scaled-credit.csv', header= TRUE)
+scaled_credit <- read.csv('../../data/datasets/scaled-credit.csv', header= TRUE)
 scaled_credit$x <- NULL
 
 set.seed(0)
@@ -14,4 +14,4 @@ train_set <- scaled_credit[sampleset, ]
 test_set <- scaled_credit[-sampleset, ]
 
 # Save to the data file
-save(train_set, test_set, file = "data/train-test-sets.RData")
+save(train_set, test_set, file = "../../data/train-test-sets.RData")
