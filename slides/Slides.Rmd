@@ -1,0 +1,75 @@
+---
+title: "Predictive Modeling Process"
+author: "Shirley Jin, Xiaoqian Zhu"
+date: "November 4, 2016"
+output: ioslides_presentation
+---
+
+## Introduction
+- In this project, we will recreate the predictive modeling process in Chapter 6: Linear Model Selection and Regularization of the book [**An Introduction to Statistical Learning**](http://www-bcf.usc.edu/~gareth/ISL/).
+- We will be using multiple regression models on the _Credit_ dataset and compare the differences between these models.
+
+## Data
+
+- Variables
+    - Predictor Variables
+        - quantitative: age, cards, income, limit, education, and rating
+        - qualitative: gender, student, status, ethnicity
+    - Response Variable
+        - quantitative: balance
+
+## Pre-Modeling Data Processing
+There are two major processing steps we took to prepare the data:
+
+- Dummy out categorical variables
+    - Transforming categorical variable into dummy variables
+```
+temp_credit <- model.matrix(Balance ~ ., data = credit)
+new_credit <- cbind(temp_credit[ ,-1], Balance = credit$Balance)
+```
+
+- Mean centering and standardizing
+    - each variable will have mean zero, and standard deviation one to have comparable scales
+```
+scaled_credit <- scale(new_credit, center = TRUE, scale = TRUE)
+```
+
+## Preparing Training and Testing Data
+In order to evaluate the models, we will take a random sample of the data for model building and use the rest to understand the model performance.
+
+- **training set**: generate a random sample of size 300. Use sample() function and an integer vector 1:400 to sample 300 values
+- **testing set**: rest of 100 observations not included in the train set
+  
+## Regression Models
+- Ordinary Least Squares Regression (OLS)
+- Shrinkage Methods
+    - Ridge Regression
+    - Lasso Regression
+- Dimension Reduction Methods
+    - Principal Components Regression (PCR)
+    - Partial Least Squares Regression (PLSR)
+  
+## OLS
+
+$$Sales \approx \beta_0 + \beta_1*Income+ \beta_2*Limit + \dots + \beta_11*EthnicityCaucasian$$
+
+## Ridge Regression
+
+$$RSS + \lambda\sum_{j=1}^{p}\beta_j^{2}$$
+
+## Lasso Regression
+
+$$\sum_{i=1}^{n}(y_i-\beta_0-\sum_{j=1}^{p}\beta_jx_{ij})^2+\lambda\sum_{j=1}^{p}|\beta_j|$$
+
+## PCR
+
+PCR is a dimension reduction technique for regression that involves constructing the first $M$ principal components, $Z_1 + \dots + Z_{M*}$, and then using these components as the predictors in a linear regression model that is fit using least squares.
+
+## PLSR
+
+$$Z_1=\sum_{j=1}^p\phi_{j1}X_j$$
+
+## Results Comparison
+
+This is the table for MSE of five regression methods.
+
