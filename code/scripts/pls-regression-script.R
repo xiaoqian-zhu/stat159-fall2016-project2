@@ -2,6 +2,7 @@
 library(pls)
 load('../../data/output/train-test-sets.RData')
 scaled_credit <- read.csv('../../data/datasets/scaled-credit.csv')
+scaled_credit$X <- NULL
 
 #setting a random seed to run the ten-cross validation 
 set.seed(27182)

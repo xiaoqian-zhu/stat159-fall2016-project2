@@ -2,7 +2,7 @@
 
 # Load the data
 scaled_credit <- read.csv('../../data/datasets/scaled-credit.csv', header= TRUE)
-scaled_credit$x <- NULL
+scaled_credit$X <- NULL
 
 set.seed(0)
 sampleset <- sample(1:400, 300, replace = FALSE)

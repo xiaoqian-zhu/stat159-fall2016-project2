@@ -4,6 +4,7 @@ library(glmnet)
 load('../../data/output/train-test-sets.RData')
 
 scaled_credit<- read.csv("../../data/datasets/scaled-credit.csv")
+scaled_credit$X <- NULL
 
 x_train <- train_set[,-12]
 y_train <- train_set[,12]

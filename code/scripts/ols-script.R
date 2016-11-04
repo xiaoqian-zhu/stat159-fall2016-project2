@@ -1,5 +1,6 @@
 # Loading dataset
 scaled_credit<- read.csv("../../data/datasets/scaled-credit.csv")
+scaled_credit$X <- NULL
 
 # Fitting ols regression and regression summary statistics
 ols_regression <- lm(Balance ~ .,data = scaled_credit)
