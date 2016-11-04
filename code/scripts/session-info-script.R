@@ -7,6 +7,10 @@ library(devtools)
 library(ggplot2)
 library(knitr)
 library(pls)
+library(png)
+library(grid)
+library(pander)
+library(reshape)
 
 # Saving information to session-info.txt
 sink(file="../../session-info.txt")
