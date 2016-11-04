@@ -1,0 +1,16 @@
+# Loading necessary packages for this project
+library(glmnet)
+library(xtable)
+library(rmarkdown)
+library(testthat)
+library(devtools)
+library(ggplot2)
+library(knitr)
+library(pls)
+
+# Saving information to session-info.txt
+sink(file="../../session-info.txt")
+cat("Session Info\n\n")
+print(sessionInfo())
+devtools::session_info()
+sink()
