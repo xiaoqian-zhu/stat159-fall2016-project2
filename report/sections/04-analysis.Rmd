@@ -1,8 +1,11 @@
+---
+output: pdf_document
+---
 # Analysis
 
 
 This is the table of regression coefficients for all methods.
-```{r results= 'asis', echo = FALSE}
+```{r results= 'asis', echo = FALSE, include=FALSE,eval=TRUE}
 Variables <- c("Intercept", "Income","Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
 OLS <- as.vector(ols_coefficients)
 Ridge <- as.vector(ridge_coefficients)
@@ -20,13 +23,12 @@ print(xtable(five_matrix_coef, caption = 'Regression Coefficients for 5 Regressi
 ## OLS Regression
 
 ```{r results= 'asis', echo = FALSE, error=FALSE}
-library(xtable)
 library(Matrix)
 load("../data/output/ols-regression.RData")
 print(xtable(ols_summary$coefficients, caption = 'OLS Coefficients',digits = c(0,5,5,5,5)), comment = FALSE,type = 'latex')
 ```
 
-OLS is the benchmark for the comparsion between different models. From the OLS regression results, we find that some coefficients have a very big p-value, thus they are not statistically significant. Therefore, Education, Gender, Marital Status and Ethinicity do not seem to have a relationship with Balance. Furthermore, we also find that some statistically significant regressors with small coefficients, which means that has very small economic effect on Balance. Thus, the main factors that may have relationshio with Balance are Income, Limit and Rating.
+OLS is the benchmark for the comparison between different models. From the OLS regression results, we find that some coefficients have a very big p-value, thus they are not statistically significant. Therefore, Education, Gender, Marital Status and Ethnicity do not seem to have a relationship with Balance. Furthermore, we also find that some statistically significant regressors with small coefficients, which means that has very small economic effect on Balance. Thus, the main factors that may have relationship with Balance are Income, Limit and Rating.
 
 ## Ridge Regression
 
@@ -39,6 +41,10 @@ print(xtable(ridge_matrix_coef, caption = 'Ridge Coefficients',digits = c(0,5)),
 
 In this Ridge regression, we found that results in the smallest validation error is $\lambda$ = `r ridge_min_lambda`. This tuning parameter $\lambda$ is relatively small. Comparing ridge regression coefficients with OLS coefficients, we find that the estimation with ridge is very similar to that of OLS but coefficients, expect the Rating coefficient, is a little bit smaller in ridge, mainly because of the shrinkage effect. It is interesting that the Rating coefficient is larger in ridge regression.
 
+```{r, echo=FALSE,fig.align='center', fig.cap= "Ridge Cross Validation Errors Plot"}
+knitr::include_graphics("../images/ridge-cross-validation-errors.png")
+```
+
 ## Lasso Regression
 
 ```{r results= 'asis', echo = FALSE, error=FALSE}
@@ -49,6 +55,10 @@ print(xtable(lasso_matrix_coef, caption = 'Lasso Coefficients', digits = c(0,5))
 ```
 
 Lasso is an improved alternative to ridge, as it adds the incentive to render statistically insignificant estimate to 0 by performing both variable slection and only fitting the data to the variables that fit the MSE criteria.  Here, the $\lambda$ we find is $\lambda$ = `r lasso_min_lambda`. Moreover, six of the coefficients have been set to zero, the rest of the lasso coefficients also tend to be smaller than those from OLS. This is due to the added restriction based on ridge regression.
+
+```{r, echo=FALSE,fig.align='center', fig.cap= "Lasso Cross Validation Errors Plot"}
+knitr::include_graphics("../images/lasso-cross-validation-errors.png")
+```
 
 ## Principal Components Regression
 
@@ -64,6 +74,10 @@ print(xtable(pcr_matrix_coef, caption = 'PCR Coefficients',digits = c(0,5)), com
 
 In this case, we find that the best M is `r lambda_min_pc`. Comparing coefficients between PCR and OLS, we find that they are very similar to each other, except Limit and Rating, while generally, the coefficients of PCR tends to be smaller than that of OLS. Additionally, the coefficients of PCR is very similar to ridge and PLSR regression.
 
+```{r, echo=FALSE,fig.align='center', fig.cap= "PCR Cross Validation Errors Plot"}
+knitr::include_graphics("../images/cv-pc-mse-plot.png")
+```
+
 ## Partial Least Squares Regression
 
 ```{r results= 'asis', echo = FALSE, error=FALSE}
@@ -76,3 +90,7 @@ print(xtable(pls_matrix_coef, caption = 'PLS Coefficients',digits = c(0,5)), com
 ```
 
 PLS is a supervised alternative to PCR. By comparing validation errors for different Ms, we find the best M is `r lambda_min_pls`. Comparing coefficients of PLS to OLS coefficients, we can see they are quite different to each other.
+
+```{r, echo=FALSE,fig.align='center', fig.cap= "PLS Cross Validation Errors Plot"}
+knitr::include_graphics("../images/cv-pls-mse-plot.png")
+```
