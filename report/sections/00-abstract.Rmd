@@ -1,0 +1,28 @@
+---
+title: "Linear Model Selection and Regularization"
+author: "Xuanyan Jin, Xiaoqian Zhu"
+data: "November 4, 2016"
+output: pdf_document
+---
+```{r, echo = FALSE, include = FALSE}
+# load the necessary data files and required packages
+scaled_credit <- read.csv("../data/datasets/scaled-credit.csv")
+load("../data/ols-regression.RData")
+load("../data/lasso-regression.RData")
+load("../data/ridge-regression.RData")
+load("../data/pc-regression.RData")
+load("../data/pls-regression.RData")
+
+# packages
+library(xtable)
+library(png)
+library(grid)
+library(ggplot2)
+library(reshape)
+```
+
+#Abstract
+
+
+In this project, we are going to take a look at five different regression models, including, ordinary least squares, ridge, lasso, principal components, and partial least squares regressions. We are mainly following the analysis from _Linear Model Selection and Regularization_(chapter 6) of the *An Introduction to Statistical Learning* by Gareth James, Daniela Witten, Trevor Hastie and Robert Tibshirani. [Link to the book](http://www-bcf.usc.edu/~gareth/ISL/). Apply each model on the data set _Credit_, [Link to the data set](http://www-bcf.usc.edu/~gareth/ISL/Credit.csv), we predict the variable `Balance ` in terms of ten predictors such as `Income`, `Age`, `Education`, `Gender`, `Ethnicity`, etc and also describe the differences between these models.
+
