@@ -215,7 +215,7 @@ dev.off()
 # Correlations Matrix between Quantitative Variables
 corr_matrix <- cor(quan_df)
 print(corr_matrix)
-correlation_matrix[lower.tri(correlation_matrix)] <- ''
+corr_matrix[lower.tri(corr_matrix)] <- ''
 
 sink('../../data/output/eda-correlation-matrix.txt')
 print(corr_matrix)
