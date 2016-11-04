@@ -1,20 +1,12 @@
 # Results
 
-This is the table for MSE of five regression methods.
-```{r results= 'asis', echo = FALSE}
-five_matrix_coef = cbind(ols_coefficients, as.numeric(ridge_coefficients), as.numeric(lasso_coefficients), c(0,pc_coef_full), c(0,pls_coef_full))
-colnames(five_matrix_coef) = c("ols", "ridge", "lasso", "pcr", "plsr")
-print(xtable(five_matrix_coef, caption = 'Regression Coefficients for 5 Regression Methods', digits = c(0,5,5,5,5,5)), comment = FALSE)
-```
-
-
 ```{r results= 'asis', echo = FALSE}
 MSE_five = as.matrix(c("ols" = ols_mse, "ridge" = ridge_mse, "lasso" = lasso_mse, "pcr" = pc_mse, "plsr" = pls_mse))
 colnames(MSE_five) = "MSE"
 print(xtable(MSE_five, caption = 'MSE of Five Regression Methods', digits = 5), comment = FALSE)
 ```
 
-From the MSE table above, we find that all the MSE are very close to each other and the maximum difference between the MSE of ridge and that of lasso. The regression with the smallest MSE is lasso regression, where MSE = `r lasso_mse`. As lasso has the smallest MSE, then we can conlcude that lasso is the best fitted model for the credit data set in this case. Aditionally, the one with the largest MSE is Ridge regression, where MSE is euqual to `r ridge_MSE`. this means tha ridge regression provides the worst fitted model for the credit dataset. 
+From the MSE table above, we find that all the MSE are very close to each other and the maximum difference between the MSE of ridge and that of lasso. The regression with the smallest MSE is lasso regression, where MSE = `r lasso_mse`. As lasso has the smallest MSE, then we can conlcude that lasso is the best fitted model for the credit data set in this case. Aditionally, the one with the largest MSE is Ridge regression, where MSE is euqual to `r ridge_mse`. this means tha ridge regression provides the worst fitted model for the credit dataset. 
 
 Furthermore, we also include a trendline plot in which the official coefficients are compared.
 
