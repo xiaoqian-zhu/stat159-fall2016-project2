@@ -10,20 +10,6 @@ From the MSE table above, we find that all the MSE are very close to each other 
 
 Furthermore, we also include a trendline plot in which the official coefficients are compared.
 
-```{r results= 'asis', echo = FALSE}
-par(mfrow = c(1,1))
-plot(five_matrix_coef[,1], xlab = "Coefficients", ylab = "Value", main = "Trend Lines of Coefficients for Five Regression Models")
-lines(five_matrix_coef[,1])
-points(five_matrix_coef[,2],col= "red")
-lines(five_matrix_coef[,2],col = "red")
-points(five_matrix_coef[,3], col = "green")
-lines(five_matrix_coef[,3],col = "green")
-points(five_matrix_coef[,4], col = "yellow")
-lines(five_matrix_coef[,4],col = "yellow")
-points(five_matrix_coef[,5], col = "blue")
-lines(five_matrix_coef[,5],col = "blue")
-legend(10,0.9,c('OLS','Ridge','Lasso','PCR','PLSR'), lty = c(1,1,1,1,1), lwd = c(2.5,2.5,2.5,2.5,2.5), col = c("black","red","green","yellow","blue"),merge = T)
-abline(h = 0, lty = 3)
-```
+
 
 This trendline plot also allows us to compare how each type of regression models fit a model to the credit data set. We can see from the graph that the lines of PLSR and PCR are very close to each other, and lasso has the least variance with OLS generally. Also, for variables like `Income`, it is almost same in each model, however, for varibles like `Rating` and `Limit`, these estimates vary widely in different regression methods.
