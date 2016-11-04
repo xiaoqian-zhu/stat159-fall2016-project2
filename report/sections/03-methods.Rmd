@@ -23,9 +23,9 @@ Additionally, to define a best $\lambda$ for the minimization, we are going to u
 ## Principal Components Regression
 
 
-Principal components regression (PCR) is a dimension reduction technique for regression, involves constructing the first $\M$ principal components, $\Z_1 + \dots + \Z_M*$, and then using these components as the predictors in a linear regression model that is fit using least squares. The key idea is that often a small number of principal components suffice to explian most of the variability in the data, as well as the relationship with the response. This model is better than using OLS, because we can avoid overfitting in this model, and the model will not pick up any unnecessary variability. In PCR, the variance will increase as the number of variables in the model increases, while the bias will decrease. 
+Principal components regression (PCR) is a dimension reduction technique for regression, involves constructing the first $M$ principal components, $Z_1 + \dots + Z_{M*}$, and then using these components as the predictors in a linear regression model that is fit using least squares. The key idea is that often a small number of principal components suffice to explian most of the variability in the data, as well as the relationship with the response. This model is better than using OLS, because we can avoid overfitting in this model, and the model will not pick up any unnecessary variability. In PCR, the variance will increase as the number of variables in the model increases, while the bias will decrease. 
 
-Furthermore, the number of principal components,$\M$, is also chosen by cross-validation. It is also crucial to standardize the variables when running PCR, because the scale of each variable may effect variance and thus affect the fit of the model produced. 
+Furthermore, the number of principal components, $M$, is also chosen by cross-validation. It is also crucial to standardize the variables when running PCR, because the scale of each variable may effect variance and thus affect the fit of the model produced. 
 
 # Partial Least Squares
 
