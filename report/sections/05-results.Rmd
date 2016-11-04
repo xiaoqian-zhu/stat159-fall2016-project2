@@ -1,11 +1,17 @@
 # Results
 
 This is the table for MSE of five regression methods.
+```{r results= 'asis', echo = FALSE}
+five_matrix_coef = cbind(ols_coefficients, as.numeric(ridge_coefficients), as.numeric(lasso_coefficients), c(0,pc_coef_full), c(0,pls_coef_full))
+colnames(five_matrix_coef) = c("ols", "ridge", "lasso", "pcr", "plsr")
+print(xtable(five_matrix_coef, caption = 'Regression Coefficients for 5 Regression Methods', digits = c(0,5,5,5,5,5)), comment = FALSE)
+```
+
 
 ```{r results= 'asis', echo = FALSE}
-MSE.val = as.matrix(c("ols" = MSE.ols, "ridge" = MSE.ridge, "lasso" = MSE.lasso, "pcr" = MSE.pcr, "plsr" = MSE.plsr))
-colnames(MSE.val) = "MSE"
-print(xtable(MSE.val, caption = 'MSE of 5 Regression Methods', digits = 5), comment = FALSE)
+MSE_five = as.matrix(c("ols" = ols_mse, "ridge" = ridge_mse, "lasso" = lasso_mse, "pcr" = pc_mse, "plsr" = pls_mse))
+colnames(MSE_five) = "MSE"
+print(xtable(MSE_five, caption = 'MSE of Five Regression Methods', digits = 5), comment = FALSE)
 ```
 
 From the MSE table above, we find that all the MSE are very close to each other and the maximum difference between the MSE of ridge and that of lasso. The regression with the smallest MSE is lasso regression, where MSE = `r lasso_mse`. As lasso has the smallest MSE, then we can conlcude that lasso is the best fitted model for the credit data set in this case. Aditionally, the one with the largest MSE is Ridge regression, where MSE is euqual to `r ridge_MSE`. this means tha ridge regression provides the worst fitted model for the credit dataset. 
@@ -14,16 +20,16 @@ Furthermore, we also include a trendline plot in which the official coefficients
 
 ```{r results= 'asis', echo = FALSE}
 par(mfrow = c(1,1))
-plot(reg.coef.mat[,1], xlab = "Coefficients", ylab = "Value", main = "Trend Lines of Coefficients for Five Regression Models")
-lines(reg.coef.mat[,1])
-points(reg.coef.mat[,2],col= "red")
-lines(reg.coef.mat[,2],col = "red")
-points(reg.coef.mat[,3], col = "green")
-lines(reg.coef.mat[,3],col = "green")
-points(reg.coef.mat[,4], col = "yellow")
-lines(reg.coef.mat[,4],col = "yellow")
-points(reg.coef.mat[,5], col = "blue")
-lines(reg.coef.mat[,5],col = "blue")
+plot(five_matrix_coef[,1], xlab = "Coefficients", ylab = "Value", main = "Trend Lines of Coefficients for Five Regression Models")
+lines(five_matrix_coef[,1])
+points(five_matrix_coef[,2],col= "red")
+lines(five_matrix_coef[,2],col = "red")
+points(five_matrix_coef[,3], col = "green")
+lines(five_matrix_coef[,3],col = "green")
+points(five_matrix_coef[,4], col = "yellow")
+lines(five_matrix_coef[,4],col = "yellow")
+points(five_matrix_coef[,5], col = "blue")
+lines(five_matrix_coef[,5],col = "blue")
 legend(10,0.9,c('OLS','Ridge','Lasso','PCR','PLSR'), lty = c(1,1,1,1,1), lwd = c(2.5,2.5,2.5,2.5,2.5), col = c("black","red","green","yellow","blue"),merge = T)
 abline(h = 0, lty = 3)
 ```
