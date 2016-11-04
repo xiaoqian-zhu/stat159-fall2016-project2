@@ -14,4 +14,4 @@ train_set <- scaled_credit[sampleset, ]
 test_set <- scaled_credit[-sampleset, ]
 
 # Save to the data file
-save(train_set, test_set, file = "../../data/train-test-sets.RData")
+save(train_set, test_set, file = "../../data/output/train-test-sets.RData")
