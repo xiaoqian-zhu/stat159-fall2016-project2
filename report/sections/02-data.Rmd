@@ -1,0 +1,15 @@
+# Data
+
+In this project, we are using the data set `Credit.csv`, which includes some qualitative and quantitative variables. The quantitative varaibels includes `age`, `cards`, `balance`, `income`, `limit`, `education`, `rating`, which represent the sample's age, the number of credit cards, years of education, income measured in thousands of dollars, credit limit, credit rating and the sample's average credit card debt. The qualitative variables are `gender`, `student`, `status` and `ethnicity`, which represent whether the sample is a student, is married, and also the specific ethnicity.
+
+However, before we can fit any model, we have to perform two major processing steps on the data set:
+
+- convert factors into dummy variables
+- mean centering and standardization
+
+The first step involves transforming each categorical variable 
+(`Gender`, `Student`, `Married`, and `Ethnicity`) into dummy variables. The main reason to do this is because the function `glmnet()` (used in ridge andlasso regressions) will not work if the input data contains factors.
+
+The second processing step involves mean-centering and standardizing all the variables. This means that each variable will have mean zero, and standard deviation one. One reason to standardize variables is to have comparable scales. When you perform a regression analysis, the value of the computed coefficients will depend on the measurement scale of the associated predictors. A $\beta$ coefficient will be different if the variable is measuredin grams or in kilos. To avoid favoring a certain coefficient, it is recommended to mean-center and standardize the variables.
+
+The scaled data we get from the two steps is saved as a csv file, called `scaled-credit.csv`. This is the actual data we are going to use for the model building process.
