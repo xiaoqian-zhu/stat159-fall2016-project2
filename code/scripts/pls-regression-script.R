@@ -1,7 +1,7 @@
 #Loading in the required packages and data
 library(pls)
-load('data/train-test-sets.RData')
-scaled_credit <- read.csv('data/datasets/scaled-credit.csv')
+load('../../data/train-test-sets.RData')
+scaled_credit <- read.csv('../../data/datasets/scaled-credit.csv')
 
 #setting a random seed to run the ten-cross validation 
 set.seed(27182)
@@ -12,7 +12,7 @@ cv_pls <- plsr(Balance ~ ., data = train_set, validation = 'CV')
 #finding the "best" model
 lambda_min_pls <- which.min(cv_pls$validation$PRESS)
 
-png(filename = 'images/cv-pls-mse-plot.png')
+png(filename = '../../images/cv-pls-mse-plot.png')
 validationplot(cv_pls, val.type = 'MSEP')
 dev.off()
 
@@ -31,10 +31,10 @@ pls_coef_full <- coef(pls_fit)
 
 #saving these coefficients into an RData file
 save(cv_pls, lambda_min_pls, pls_mse, pls_coef_full, 
-     file = 'data/pls-regression.RData')
+     file = '../../data/pls-regression.RData')
 
 #Now we want to make a text file of the intermediary step of this regression analysis: 
-sink(file = 'data/output/pls-regression-output.txt')
+sink(file = '../../data/output/pls-regression-output.txt')
 cat('This is the output of the ten-fold cross validation using Lasso regression\n on the training data set\n')
 print(summary(cv_pls))
 cat('\nThis is the minimum lambda that represents the "best" model\n')
