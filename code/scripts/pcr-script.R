@@ -3,7 +3,7 @@ library(pls)
 load('../../data/output/train-test-sets.RData')
 scaled_credit <- read.csv('../../data/datasets/scaled-credit.csv')
 
-set.seed(43210)
+set.seed(9991)
 cv_pc <- pcr(Balance ~ ., data = train_set, validation = 'CV', scaled = TRUE)
 
 # Finding Minimum Lambda
