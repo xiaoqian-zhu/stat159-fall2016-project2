@@ -50,7 +50,7 @@ session: code/scripts/session-info-script.R
 #slides:
 
 # Report to pdf
-report: report/sections/*.Rmg
+report: report/sections/*.Rmd
 	cd report; cat sections/*.Rmd > report.Rmd; Rscript -e "library(rmarkdown); render('report.Rmd','pdf_document')"
 
 # Clean report
