@@ -2,6 +2,11 @@
 
 
 This is the table of regression coefficients for all methods. 
+```{r results= 'asis', echo = FALSE}
+five_matrix_coef = cbind(ols_coefficients, as.numeric(ridge_coefficients), as.numeric(lasso_coefficients), c(0,pc_coef_full), c(0,pls_coef_full))
+colnames(five_matrix_coef) = c("ols", "ridge", "lasso", "pcr", "plsr")
+print(xtable(five_matrix_coef, caption = 'Regression Coefficients for 5 Regression Methods', digits = c(0,5,5,5,5,5)), comment = FALSE)
+```
 
 
 ## OLS Regression
