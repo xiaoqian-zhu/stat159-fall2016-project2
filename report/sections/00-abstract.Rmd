@@ -7,11 +7,11 @@ output: pdf_document
 ```{r, echo = FALSE, include = FALSE}
 # load the necessary data files and required packages
 scaled_credit <- read.csv("../data/datasets/scaled-credit.csv")
-load("../data/ols-regression.RData")
-load("../data/lasso-regression.RData")
-load("../data/ridge-regression.RData")
-load("../data/pc-regression.RData")
-load("../data/pls-regression.RData")
+load("../data/output/ols-regression.RData")
+load("../data/output/lasso-regression.RData")
+load("../data/output/ridge-regression.RData")
+load("../data/output/pc-regression.RData")
+load("../data/outout/pls-regression.RData")
 
 # packages
 library(xtable)
