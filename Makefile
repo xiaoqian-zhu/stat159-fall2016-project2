@@ -22,19 +22,19 @@ tests: code/tests/test-regression.R
 eda: code/scripts/eda-script.R data/datasets/Credit.csv
 	cd code/scripts; Rscript eda-script.R
 
-ols: code/scripts/ols-script.R data/datasets/scaled-credit.csv data/train-test-sets.RData code/functions/mse-function.R
+ols: code/scripts/ols-script.R data/datasets/scaled-credit.csv data/output/train-test-sets.RData code/functions/mse-function.R
 	cd code/scripts; Rscript ols-script.R
 
-ridge: code/scripts/ridge-script.R data/datasets/scaled-credit.csv data/train-test-sets.RData code/functions/mse-function.R
+ridge: code/scripts/ridge-script.R data/datasets/scaled-credit.csv data/output/train-test-sets.RData code/functions/mse-function.R
 	cd code/scripts; Rscript ridge-script.R
 
-lasso: code/scripts/lasso-regression.R data/datasets/scaled-credit.csv data/train-test-sets.RData code/functions/mse-function.R
+lasso: code/scripts/lasso-regression.R data/datasets/scaled-credit.csv data/output/train-test-sets.RData code/functions/mse-function.R
 	cd code/scripts; Rscript lasso-regression.R
 
-pcr: code/scripts/pcr-script.R data/datasets/scaled-credit.csv data/train-test-sets.RData code/functions/mse-function.R
+pcr: code/scripts/pcr-script.R data/datasets/scaled-credit.csv data/output/train-test-sets.RData code/functions/mse-function.R
 	cd code/scripts; Rscript pcr-script.R
 
-plsr: code/scripts/pls-regression-script.R data/datasets/scaled-credit.csv data/train-test-sets.RData code/functions/mse-function.R
+plsr: code/scripts/pls-regression-script.R data/datasets/scaled-credit.csv data/output/train-test-sets.RData code/functions/mse-function.R
 	cd code/scripts; Rscript pls-regression-script.R
 
 regressions:
