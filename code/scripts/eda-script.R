@@ -220,7 +220,7 @@ correlation_matrix <- cor(quant)
 correlation_matrix[lower.tri(correlation_matrix)] <- ''
 
 sink('../../data/output/eda-correlation-matrix.txt')
-print(corr_matrix)
+print(correlation_matrix)
 sink()
 
 # Scatterplot Matrix
