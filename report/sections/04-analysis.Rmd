@@ -24,10 +24,10 @@ options(xtable.comment = FALSE,
         xtable.table.placement = "H")
 load("../data/output/ols-model-stats.RData")
 load("../data/output/ols-regression.RData")
-print(xtable(ols_summary$coefficients, caption = 'OLS Coefficients',digits = c(0,5,5,5,5)), comment = FALSE)
+print(xtable(ols_coefficients, caption = 'OLS Coefficients',digits = c(0,5,5,5,5)), comment = FALSE)
 ```
 
-OLS is the benchmark for the comparsion between different models, thus we also use ten-fold ten-fold cross-validation ito build the OLS model, by first using the train set to fit the model, calculate MSE in the test set and, then fit the model selected to the entire data set. From the OLS regression results, we find that some coefficients have a very big p-value, thus they are not statistically significant. Therefore, Education, Gender, Marital Status and Ethinicity do not seem to have a relationship with Balance. Furthermore, we also find that some statistically significant regressors with small coefficients, which means that has very small economic effect on Balance. Thus, the main factors that may have relationshio with Balance are Income, Limit and Rating.
+OLS is the benchmark for the comparsion between different models. From the OLS regression results, we find that some coefficients have a very big p-value, thus they are not statistically significant. Therefore, Education, Gender, Marital Status and Ethinicity do not seem to have a relationship with Balance. Furthermore, we also find that some statistically significant regressors with small coefficients, which means that has very small economic effect on Balance. Thus, the main factors that may have relationshio with Balance are Income, Limit and Rating.
 
 ## Ridge Regression
 
