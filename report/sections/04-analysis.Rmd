@@ -1,11 +1,19 @@
 # Analysis
 
 
-This is the table of regression coefficients for all methods. 
+This is the table of regression coefficients for all methods.
 ```{r results= 'asis', echo = FALSE}
-five_matrix_coef = cbind(ols_coefficients, as.numeric(ridge_coefficients), as.numeric(lasso_coefficients), c(0,pc_coef_full), c(0,pls_coef_full))
-colnames(five_matrix_coef) = c("ols", "ridge", "lasso", "pcr", "plsr")
-print(xtable(five_matrix_coef, caption = 'Regression Coefficients for 5 Regression Methods', digits = c(0,5,5,5,5,5)), comment = FALSE)
+Variables <- c("Intercept", "Income","Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
+OLS <- as.vector(ols_coefficients)
+Ridge <- as.vector(ridge_coefficients)
+Lasso <- as.vector(lasso_coefficients)
+PCR <- as.vector(pc_coef_full)
+PCR <- append(PCR, 0, 0)
+PLSR <- as.vector(pls_coef_full)
+PLSR <- append(PLSR, 0, 0)
+
+five_matrix_coef <- data.frame(Variables, OLS, Ridge, Lasso, PCR, PLSR)
+print(xtable(five_matrix_coef, caption = 'Regression Coefficients for 5 Regression Methods', digits = 3), comment = FALSE, type = 'latex')
 ```
 
 
@@ -20,16 +28,14 @@ In this Ridge regression, we found that results in the smallest validation error
 
 ## Lasso Regression
 
-Lasso is an improved alternative to ridge, as it adds the incentive to render statistically insignificant estimate to 0 by performing both variable slection and only fitting the data to the variables that fit the MSE criteria.  Here, the $\lambda$ we find is $\lambda$ = `r lasso_min_lambda`. Moreover, six of the coefficients have been set to zero, the rest of the lasso coefficients also tend to be smaller than those from OLS. This is due to the added restriction based on ridge regression. 
+Lasso is an improved alternative to ridge, as it adds the incentive to render statistically insignificant estimate to 0 by performing both variable slection and only fitting the data to the variables that fit the MSE criteria.  Here, the $\lambda$ we find is $\lambda$ = `r lasso_min_lambda`. Moreover, six of the coefficients have been set to zero, the rest of the lasso coefficients also tend to be smaller than those from OLS. This is due to the added restriction based on ridge regression.
 
 ## Principal Components Regression
 
 
-In this case, we find that the best M is `r lambda_min_pc`. Comparing coefficients between PCR and OLS, we find that they are very similar to each other, except Limit and Rating, while generally, the coefficients of PCR tends to be smaller than that of OLS. Additionally, the coefficients of PCR is very similar to ridge and PLSR regression. 
+In this case, we find that the best M is `r lambda_min_pc`. Comparing coefficients between PCR and OLS, we find that they are very similar to each other, except Limit and Rating, while generally, the coefficients of PCR tends to be smaller than that of OLS. Additionally, the coefficients of PCR is very similar to ridge and PLSR regression.
 
 ## Partial Least Squares Regression
 
 
-PLS is a supervised alternative to PCR. By comparing validation errors for different Ms, we find the best M is `r lambda_min_pls`. Comparing coefficients of PLS to OLS coefficients, we can see they are quite different to each other. 
-
-
+PLS is a supervised alternative to PCR. By comparing validation errors for different Ms, we find the best M is `r lambda_min_pls`. Comparing coefficients of PLS to OLS coefficients, we can see they are quite different to each other.
