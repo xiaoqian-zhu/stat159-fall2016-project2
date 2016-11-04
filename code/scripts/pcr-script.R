@@ -1,6 +1,6 @@
 # Library and load data
 library(pls)
-load('../../data/train-test-sets.RData')
+load('../../data/output/train-test-sets.RData')
 scaled_credit <- read.csv('../../data/datasets/scaled-credit.csv')
 
 set.seed(43210)
@@ -23,7 +23,7 @@ pc_fit <- pcr(Balance ~ ., data = scaled_credit, ncomp = lambda_min_pc)
 pc_coef_full <- coef(pc_fit)
 
 # Saving Data and Generating an Output
-save(lambda_min_pc, cv_pc, pc_MSE, pc_coef_full,file = '../../data/RData-files/pc-regression.RData')
+save(lambda_min_pc, cv_pc, pc_MSE, pc_coef_full,file = '../../data/output/pc-regression.RData')
 
 sink('../../data/output/pc-regression-output.txt')
 cat('Output of 10-fold Cross-Validation using PC Regression on the Train Data Set\n')
