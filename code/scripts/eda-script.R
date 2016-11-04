@@ -1,5 +1,5 @@
 # Load data set
-credit <- read.csv('data/datasets/Credit.csv', header = TRUE)
+credit <- read.csv('../../data/datasets/Credit.csv', header = TRUE)
 credit$X <- NULL
 
 # Load necessary packages
@@ -63,7 +63,7 @@ colnames(ethnicity_df) <- c('Ethnicity', 'Frequency', 'Relative Frequency')
 
 
 # Sink to Eda Output file
-sink('data/output/eda-output.txt')
+sink('../../data/output/eda-output.txt')
 cat('Quantitative Variable Information\n')
 cat('\nSummary of Balance\n')
 summary(credit$Balance)
@@ -98,7 +98,7 @@ sink()
 
 
 # Histograms for Quantitative Variables
-png('images/histogram-balance.png')
+png('../../images/histogram-balance.png')
 ggplot(data = credit) +
   geom_histogram(aes(Balance), binwidth = 250,
                  col = 'black',fill = 'blue') +
@@ -107,7 +107,7 @@ ggplot(data = credit) +
   ggtitle('Histogram of Balance')
 dev.off()
 
-png('images/histogram-income.png')
+png('../../images/histogram-income.png')
 ggplot(data = credit) +
   geom_histogram(aes(Income), binwidth = 35,
                  col = 'black',fill = 'blue') +
@@ -116,7 +116,7 @@ ggplot(data = credit) +
   ggtitle('Histogram of Income')
 dev.off()
 
-png('images/histogram-limit.png')
+png('../../images/histogram-limit.png')
 ggplot(data = credit) +
   geom_histogram(aes(Limit), binwidth = 2000,
                  col = 'black',fill = 'blue') +
@@ -125,7 +125,7 @@ ggplot(data = credit) +
   ggtitle('Histogram of Limit')
 dev.off()
 
-png('images/histogram-rating.png')
+png('../../images/histogram-rating.png')
 ggplot(data = credit) +
   geom_histogram(aes(Rating), binwidth = 100,
                  col = 'black',fill = 'blue') +
@@ -134,7 +134,7 @@ ggplot(data = credit) +
   ggtitle('Histogram of Rating')
 dev.off()
 
-png('images/histogram-cards.png')
+png('../../images/histogram-cards.png')
 ggplot(data = credit) +
   geom_histogram(aes(Cards), binwidth = 2,
                  col = 'black',fill = 'blue') +
@@ -143,7 +143,7 @@ ggplot(data = credit) +
   ggtitle('Histogram of Cards')
 dev.off()
 
-png('images/histogram-age.png')
+png('../../images/histogram-age.png')
 ggplot(data = credit) +
   geom_histogram(aes(Age), binwidth = 10,
                  col = 'black',fill = 'blue') +
@@ -152,7 +152,7 @@ ggplot(data = credit) +
   ggtitle('Histogram of Age')
 dev.off()
 
-png('images/histogram-education.png')
+png('../../images/histogram-education.png')
 ggplot(data = credit) +
   geom_histogram(aes(Education), binwidth = 3,
                  col = 'black',fill = 'blue') +
@@ -162,51 +162,51 @@ ggplot(data = credit) +
 dev.off()
 
 # Boxplots for Quantitative Variables
-png('images/boxplot-balance.png')
+png('../../images/boxplot-balance.png')
 boxplot(balance, ylab = 'Frequency', main = 'Boxplot of Balance')
 dev.off()
 
-png('images/boxplot-income.png')
+png('../../images/boxplot-income.png')
 boxplot(income, ylab = 'Frequency', main = 'Boxplot of Income')
 dev.off()
 
-png('images/boxplot-limit.png')
+png('../../images/boxplot-limit.png')
 boxplot(limit, ylab = 'Frequency', main = 'Boxplot of Limit')
 dev.off()
 
-png('images/boxplot-rating.png')
+png('../../images/boxplot-rating.png')
 boxplot(rating, ylab = 'Frequency', main = 'Boxplot of Rating')
 dev.off()
 
-png('images/boxplot-cards.png')
+png('../../images/boxplot-cards.png')
 boxplot(cards, ylab = 'Frequency', main = 'Boxplot of Cards')
 dev.off()
 
-png('images/boxplot-age.png')
+png('../../images/boxplot-age.png')
 boxplot(age, ylab = 'Frequency', main = 'Boxplot of Age')
 dev.off()
 
-png('images/boxplot-education.png')
+png('../../images/boxplot-education.png')
 boxplot(education, ylab = 'Frequency', main = 'Boxplot of Education')
 dev.off()
 
 # Barchats for Qualitative Variables
-png('images/barchart-gender.png')
+png('../../images/barchart-gender.png')
 barplot(table(credit$Gender), ylab = 'Count', xlab = 'Gender',
         col = 'red')
 dev.off()
 
-png('images/barchart-student.png')
+png('../../images/barchart-student.png')
 barplot(table(credit$Student), ylab = 'Count', xlab = 'Student?',
         col = 'red')
 dev.off()
 
-png('images/barchart-married.png')
+png('../../images/barchart-married.png')
 barplot(table(credit$Married), ylab = 'Count', xlab = 'Married?',
         col = 'red')
 dev.off()
 
-png('images/barchart-ethnicity.png')
+png('../../images/barchart-ethnicity.png')
 barplot(table(credit$Ethnicity), ylab = 'Count', xlab = 'Ethnicity',
         col = 'red', ylim = c(0, 250))
 dev.off()
@@ -217,35 +217,35 @@ corr_matrix <- cor(quan_df)
 print(corr_matrix)
 correlation_matrix[lower.tri(correlation_matrix)] <- ''
 
-sink('data/output/eda-correlation-matrix.txt')
+sink('../../data/output/eda-correlation-matrix.txt')
 print(corr_matrix)
 sink()
 
 # Scatterplot Matrix
-png('images/scatterplot-matrix.png')
+png('../../images/scatterplot-matrix.png')
 pairs(quan_df,pch = 16)
 dev.off()
 
 # Boxplots relating Balance to Each of the Qualitative Variables
-png('images/boxplot-gender.png')
+png('../../images/boxplot-gender.png')
 ggplot(data = credit) +
   geom_boxplot(aes(x = Gender, y = Balance), fill = c('blue','red'))+
   ggtitle('Conditional Boxplot of Balance by Gender')
 dev.off()
 
-png('images/boxplot-student.png')
+png('../../images/boxplot-student.png')
 ggplot(data = credit) +
   geom_boxplot(aes(x = Student, y = Balance), fill = c('blue','red'))+
   ggtitle('Conditional Boxplot of Balance by Student')
 dev.off()
 
-png('images/boxplot-married.png')
+png('../../images/boxplot-married.png')
 ggplot(data = credit) +
   geom_boxplot(aes(x = Married, y = Balance), fill = c('blue','red'))+
   ggtitle('Conditional Boxplot of Balance by Married')
 dev.off()
 
-png('images/boxplot-ethnicity.png')
+png('../../images/boxplot-ethnicity.png')
 ggplot(data = credit) +
   geom_boxplot(aes(x = Ethnicity, y = Balance), 
                fill = c('blue','red', 'yellow'))+
