@@ -11,7 +11,7 @@ load("../data/output/ols-regression.RData")
 load("../data/output/lasso-regression.RData")
 load("../data/output/ridge-regression.RData")
 load("../data/output/pc-regression.RData")
-load("../data/outout/pls-regression.RData")
+load("../data/output/pls-regression.RData")
 
 # packages
 library(xtable)
