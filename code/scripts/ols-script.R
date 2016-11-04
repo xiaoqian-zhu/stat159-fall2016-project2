@@ -12,10 +12,10 @@ ols_coefficients <- coef(ols_regression)
 ols_mse <- mean(ols_regression$residuals^2)
 
 # Saving output to RData file
-save(ols_regression,ols_summary,ols_coefficients, ols_mse, file="../../data/ols-regression.RData")
+save(ols_regression,ols_summary,ols_coefficients, ols_mse, file="../../data/output/ols-regression.RData")
 
 # Sinking output to txt file
-sink('../../data/ols-regression-output.txt')
+sink('../../data/output/ols-regression-output.txt')
 cat('\nOLS regression summary statistics\n')
 print(ols_summary)
 cat('\nOLS MSE\n')
