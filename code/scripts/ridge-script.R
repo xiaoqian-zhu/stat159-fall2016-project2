@@ -1,7 +1,7 @@
 library(glmnet)
 
 # Loading train, test, and full data
-load('../../data/train-test-sets.RData')
+load('../../data/output/train-test-sets.RData')
 scaled_credit<- read.csv("../../data/datasets/scaled-credit.csv")
 x_credit <- scaled_credit[,-12]
 y_credit <- scaled_credit[,12]
@@ -33,10 +33,10 @@ ridge_regression <- glmnet(as.matrix(x_credit), y_credit, alpha = 0, lambda = ri
 ridge_coefficients <- coef(ridge_regression)
 
 # Saving output to RData file
-save(ridge_cv, ridge_min_lambda, ridge_mse, ridge_regression, ridge_coefficients, file = "../../data/ridge-regression.RData")
+save(ridge_cv, ridge_min_lambda, ridge_mse, ridge_regression, ridge_coefficients, file = "../../data/output/ridge-regression.RData")
 
 # Sinking output to txt file
-sink('../../data/ridge-regression-output.txt')
+sink('../../data/output/ridge-regression-output.txt')
 cat('\nRidge best fitting lambda\n')
 print(ridge_min_lambda)
 cat('\nRidge test set MSE\n')

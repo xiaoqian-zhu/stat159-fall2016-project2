@@ -1,6 +1,6 @@
 #Loading in the required packages and data
 library(pls)
-load('../../data/train-test-sets.RData')
+load('../../data/output/train-test-sets.RData')
 scaled_credit <- read.csv('../../data/datasets/scaled-credit.csv')
 
 #setting a random seed to run the ten-cross validation 
@@ -31,7 +31,7 @@ pls_coef_full <- coef(pls_fit)
 
 #saving these coefficients into an RData file
 save(cv_pls, lambda_min_pls, pls_mse, pls_coef_full, 
-     file = '../../data/pls-regression.RData')
+     file = '../../data/output/pls-regression.RData')
 
 #Now we want to make a text file of the intermediary step of this regression analysis: 
 sink(file = '../../data/output/pls-regression-output.txt')
