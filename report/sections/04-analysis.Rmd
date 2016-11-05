@@ -1,11 +1,9 @@
----
-output: pdf_document
----
+
 # Analysis
 
 
 This is the table of regression coefficients for all methods.
-```{r results= 'asis', echo = FALSE, include=FALSE,eval=TRUE}
+```{r results= 'asis', echo = FALSE}
 Variables <- c("Intercept", "Income","Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
 OLS <- as.vector(ols_coefficients)
 Ridge <- as.vector(ridge_coefficients)
