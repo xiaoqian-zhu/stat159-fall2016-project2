@@ -9,6 +9,7 @@ output: ioslides_presentation
 - In this project, we will recreate the predictive modeling process in Chapter 6: Linear Model Selection and Regularization of the book [**An Introduction to Statistical Learning**](http://www-bcf.usc.edu/~gareth/ISL/).
 - We will be using multiple regression models on the _Credit_ dataset and compare the differences between these models.
 
+
 ## Data
 
 - Variables
@@ -17,6 +18,7 @@ output: ioslides_presentation
         - qualitative: gender, student, status, ethnicity
     - Response Variable
         - quantitative: balance
+        
 
 ## Pre-Modeling Data Processing
 There are two major processing steps we took to prepare the data:
@@ -28,17 +30,20 @@ temp_credit <- model.matrix(Balance ~ ., data = credit)
 new_credit <- cbind(temp_credit[ ,-1], Balance = credit$Balance)
 ```
 
+
 - Mean centering and standardizing
     - each variable will have mean zero, and standard deviation one to have comparable scales
 ```
 scaled_credit <- scale(new_credit, center = TRUE, scale = TRUE)
 ```
 
+
 ## Preparing Training and Testing Data
 In order to evaluate the models, we will take a random sample of the data for model building and use the rest to understand the model performance.
 
 - **training set**: generate a random sample of size 300. Use sample() function and an integer vector 1:400 to sample 300 values
 - **testing set**: rest of 100 observations not included in the train set
+  
   
 ## Regression Models
 - Ordinary Least Squares Regression (OLS)
@@ -49,27 +54,187 @@ In order to evaluate the models, we will take a random sample of the data for mo
     - Principal Components Regression (PCR)
     - Partial Least Squares Regression (PLSR)
   
+  
 ## OLS
 
 $$Sales \approx \beta_0 + \beta_1*Income+ \beta_2*Limit + \dots + \beta_11*EthnicityCaucasian$$
+
 
 ## Ridge Regression
 
 $$RSS + \lambda\sum_{j=1}^{p}\beta_j^{2}$$
 
+
 ## Lasso Regression
 
 $$\sum_{i=1}^{n}(y_i-\beta_0-\sum_{j=1}^{p}\beta_jx_{ij})^2+\lambda\sum_{j=1}^{p}|\beta_j|$$
+
 
 ## PCR
 
 PCR is a dimension reduction technique for regression that involves constructing the first $M$ principal components, $Z_1 + \dots + Z_{M*}$, and then using these components as the predictors in a linear regression model that is fit using least squares.
 
+
 ## PLSR
 
 $$Z_1=\sum_{j=1}^p\phi_{j1}X_j$$
 
-## Results Comparison
+## Analysis
+## OLS
 
-This is the table for MSE of five regression methods.
+This is coefficient table for OLS:
+```{r results= 'asis', echo = FALSE, error=FALSE}
+library(Matrix)
+load("../data/output/ols-regression.RData")
+print(xtable(ols_summary$coefficients, caption = 'OLS Coefficients',digits = c(0,5,5,5,5)), comment = FALSE,type = 'latex')
+```
 
+## OLS
+
+- Benchmark for comparison
+- Education, Gender, Martial Status and Ethnicity has big p-value， thus not statitiscally significant.
+- Income, Limit, and Rating have large and statistically significant coefficients.
+
+## Ridge
+
+This is the coefficient table for Ridge:
+```{r results= 'asis', echo = FALSE, error=FALSE}
+load("../data/output/ridge-regression.RData")
+ridge_matrix_coef <- as.matrix(ridge_coefficients)
+colnames(ridge_matrix_coef) <- "Estimates"
+print(xtable(ridge_matrix_coef, caption = 'Ridge Coefficients',digits = c(0,5)), comment = FALSE,type = 'latex')
+```
+
+
+
+## Ridge
+
+- The smallest validation error is $\lambda$ = `r ridge_min_lambda`.
+- Small $\lambda$
+- Similar coefficients with OLS, expect the larger Rating coefficients.
+
+
+## Ridge
+
+This is the image for ridge cross validation errors.
+$$\includegraphics[width=250pt]{../images/ridge-cross-validation-errors.png}$$
+
+
+## Lasso
+
+This the coefficient table for Ridge:
+```{r results= 'asis', echo = FALSE, error=FALSE}
+load("../data/output/lasso-regression.RData")
+lasso_matrix_coef <- as.matrix(lasso_coefficients)
+colnames(lasso_matrix_coef) <- "Estimates"
+print(xtable(lasso_matrix_coef, caption = 'Lasso Coefficients', digits = c(0,5)), comment = FALSE,type = 'latex')
+```
+
+
+## Lasso
+
+- $\lambda$ = `r lasso_min_lambda`
+- Six of the coefficients are set to zero
+- Smaller coefficients than OLS
+
+## Lasso
+
+The graph for lasso cross-validation errors:
+$$\includegraphics[width=250pt]{../images/lasso-cross-validation-errors.png}$$
+
+
+## PCR
+
+This is the coefficient table for PCR:
+```{r results= 'asis', echo = FALSE, error=FALSE}
+load("../data/output/pc-regression.RData")
+pcr_matrix_coef <- as.matrix(pc_coef_full)
+dimnames(pcr_matrix_coef) <- list(rownames(pcr_matrix_coef, do.NULL = FALSE, prefix = "row"),colnames(pcr_matrix_coef, do.NULL = FALSE, prefix = "col"))
+colnames(pcr_matrix_coef) <- "Estimates"
+rownames(pcr_matrix_coef) <- c("Income", "Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
+print(xtable(pcr_matrix_coef, caption = 'PCR Coefficients',digits = c(0,5)), comment = FALSE,type = 'latex')
+```
+
+
+## PCR
+
+- The best M is `r lambda_min_pc`.
+- Almost same coefficients with OLS and PLSR.
+- Coefficients also similar to Ridge and Lasso.
+
+## PCR
+
+This is the MSE plot for PCR:
+$$\includegraphics[width=250pt]{../images/cv-pc-mse-plot.png}$$
+
+## PLSR
+
+This is coefficient table for PLSR:
+```{r results= 'asis', echo = FALSE, error=FALSE}
+load("../data/output/pls-regression.RData")
+pls_matrix_coef <- as.matrix(pls_coef_full)
+dimnames(pls_matrix_coef) <- list(rownames(pls_matrix_coef, do.NULL = FALSE, prefix = "row"),colnames(pls_matrix_coef, do.NULL = FALSE, prefix = "col"))
+colnames(pls_matrix_coef) <- "Estimates"
+rownames(pls_matrix_coef) <- c("Income", "Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
+print(xtable(pls_matrix_coef, caption = 'PLS Coefficients',digits = c(0,5)), comment = FALSE,type = 'latex')
+```
+
+
+## PLSR
+
+- The best M is `r lambda_min_pls`.
+- Almost same to OLS and PCR.
+- Similar to Ridge.
+
+
+## PLSR
+
+This is the MSE plot for PLSR:
+$$\includegraphics[width=250pt]{../images/cv-pls-mse-plot.png}$$
+
+
+## Results
+
+This is the table for MSE of all regression models:
+```{r results= 'asis', echo = FALSE}
+MSE_five = as.matrix(c("ols" = ols_mse, "ridge" = ridge_mse, "lasso" = lasso_mse, "pcr" = pc_mse, "plsr" = pls_mse))
+colnames(MSE_five) = "MSE"
+print(xtable(MSE_five, caption = 'MSE of Five Regression Methods', digits = 5), comment = FALSE)
+```
+
+
+## MSE
+
+- Close to one another
+- lasso has the largest MSE `r lasso_mse`, ols the least `r ols_mse`
+- ols the best fit model, lasso the worst fit model
+
+## Results
+
+This the trendline plot for each type of regression models fit on Credit.csv:
+```{r results= 'asis', echo = FALSE}
+Variables <- c("Intercept", "Income","Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
+OLS <- as.vector(ols_coefficients)
+Ridge <- as.vector(ridge_coefficients)
+Lasso <- as.vector(lasso_coefficients)
+PCR <- as.vector(pc_coef_full)
+PCR <- append(PCR, 0, 0)
+PLSR <- as.vector(pls_coef_full)
+PLSR <- append(PLSR, 0, 0)
+
+five_matrix_coef <- data.frame(Variables, OLS, Ridge, Lasso, PCR, PLSR)
+print(xtable(five_matrix_coef, caption = 'Regression Coefficients for 5 Regression Methods', digits = 3), comment = FALSE, type = 'latex')
+```
+
+
+## Official Coefficients
+
+- Lasso with largest variation
+- PLSR, OLSR and PCR have the almost same coefficients
+
+
+## Conclusions
+
+- OLS is the best fit model to Credit dataset.
+- Income, Limit, and Rating are statistically and economiclly significant across five models.
+- Lasso is the worst fit model to Credit dataset.
