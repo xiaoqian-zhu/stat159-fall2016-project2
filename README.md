@@ -14,6 +14,7 @@ stat159-fall2016-project2/
    session-info.txt
    .gitignore
    code/
+      README.md
       functions/
          mse-function.R
          ols-regression-functions.R
@@ -29,13 +30,54 @@ stat159-fall2016-project2/
       tests/
          mse-function-test.R
          ols-regression-test.R
+      test-that.R
    data/
+      README.md
       datasets/
-        Credit.csv
+        credit.csv
         scaled-credit.csv
-      ...
+      output/
+      	eda-correlation-matrix.txt
+	eda-output.txt
+	lasso-regression-output.txt
+	lasso-regression.RData
+	ols-regression-output.txt
+	ols-regression.RData
+	pc-regression-output.txt
+	pc-regression.RData
+	pls-regression-output.txt
+	pls-regression.RData
+	ridge-regression-output.txt
+	ridge-regression.RData
+	train-test-sets.RData
    images/
-      ...
+      README.md
+      barchart-ethnicity.png
+      barchart-gender.png
+      barchart-married.png
+      barchart-student.png
+      boxplot-age.png
+      boxplot-balance.png
+      boxplot-cards.png
+      boxplot-education.png
+      boxplot-ethnicity.png
+      boxplot-gender.png
+      boxplot-income.png
+      boxplot-limit.png
+      boxplot-married.png
+      boxplot-rating.png
+      boxplot-student.png
+      cv-pc-mse-plot.png
+      cv-pls-mse-plot.png
+      histogram-balance.png
+      histogram-cards.png
+      histogram-education.png
+      histogram-income.png
+      histogram-limit.png
+      histogram-rating.png
+      lasso-cross-validation-errors.png
+      ridge-cross-validation-errors.png
+      scatterplot-matrix.png
    report/
       report.pdf
       report.Rmd
@@ -48,7 +90,8 @@ stat159-fall2016-project2/
          05-results.Rmd
          06-conclusions.Rmd
    slides/
-      ...
+      Slides.Rmd
+      Slides.html
 ```
 
 **Details**: Code folder contains 3 folders, scripts folder contains R script codes used to analyze the data, functions folder contains functions used to compute regression MSE and other statistics and tests folder contains the tests to verify the accuracy of functions. Data folder contains the main data set `Credit.csv` and and scaled dataset in datasets folder, as well as other important data stored using R. The project report is in the report folder. Slides about results are included in slides folder. `make` can be called to recreate the analysis.
