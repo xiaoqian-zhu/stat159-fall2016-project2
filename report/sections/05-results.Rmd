@@ -1,3 +1,4 @@
+
 # Results
 
 ```{r results= 'asis', echo = FALSE}
@@ -12,8 +13,8 @@ Furthermore, we also include a trendline plot in which the official coefficients
 
 ```{r results= 'asis', echo = FALSE}
 par(mfrow = c(1,1))
-plot(five_matrix_coef[,3], xlab = "Coefficients", ylab = "Value", main = "Trend Lines of Coefficients for Five Regression Models", col = "black")
-lines(five_matrix_coef[,3], col="black")
+plot(five_matrix_coef[,2], xaxt = "n",xlab=" ", ylab = "Value", main = "Trend Lines of Coefficients for Five Regression Models", col = "black")
+lines(five_matrix_coef[,2], col="black", lwd=2)
 points(five_matrix_coef[,3],col= "red")
 lines(five_matrix_coef[,3],col = "red")
 points(five_matrix_coef[,4], col = "green")
@@ -22,6 +23,7 @@ points(five_matrix_coef[,5], col = "yellow")
 lines(five_matrix_coef[,5],col = "yellow")
 points(five_matrix_coef[,6], col = "blue")
 lines(five_matrix_coef[,6],col = "blue")
+axis(1, at=1:12, labels=Variables, las=2,cex.axis=0.6)
 legend(10,0.9,c('OLS','Ridge','Lasso','PCR','PLSR'), lty = c(1,1,1,1,1), lwd = c(2.5,2.5,2.5,2.5,2.5), col = c("black","red","green","yellow","blue"),merge = T)
 abline(h = 0, lty = 3)
 ```
