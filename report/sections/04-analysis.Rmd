@@ -37,7 +37,7 @@ colnames(ridge_matrix_coef) <- "Estimates"
 print(xtable(ridge_matrix_coef, caption = 'Ridge Coefficients',digits = c(0,5)), comment = FALSE,type = 'latex')
 ```
 
-In this Ridge regression, we found that results in the smallest validation error is $\lambda$ = `r ridge_min_lambda`. This tuning parameter $\lambda$ is relatively small. Comparing ridge regression coefficients with OLS coefficients, we find that the estimation with ridge is very similar to that of OLS but coefficients, expect the Rating coefficient, is a little bit smaller in ridge, mainly because of the shrinkage effect. It is interesting that the Rating coefficient is larger in ridge regression.
+In this Ridge regression, we found that results in the smallest validation error is $\lambda$ = `r ridge_min_lambda`. This tuning parameter $\lambda$ is relatively small. Comparing ridge regression coefficients with OLS coefficients, we find that the estimation with ridge is very similar to that of OLS and has relatively smaller coefficients, expect the Rating coefficient, is much larger in ridge.
 
 $$\includegraphics[width=250pt]{../images/ridge-cross-validation-errors.png}$$
 
@@ -67,7 +67,7 @@ print(xtable(pcr_matrix_coef, caption = 'PCR Coefficients',digits = c(0,5)), com
 ```
 
 
-In this case, we find that the best M is `r lambda_min_pc`. Comparing coefficients between PCR and OLS, we find that they are very similar to each other, except Limit and Rating, while generally, the coefficients of PCR tends to be smaller than that of OLS. Additionally, the coefficients of PCR is very similar to ridge and PLSR regression.
+In this case, we find that the best M is `r lambda_min_pc`. Comparing coefficients between PCR and OLS, we find that they are almost same to each other. Additionally, the coefficients of PCR is very similar to ridge and PLSR regression.
 
 $$\includegraphics[width=250pt]{../images/cv-pc-mse-plot.png}$$
 
@@ -83,6 +83,6 @@ rownames(pls_matrix_coef) <- c("Income", "Limit", "Rating", "Cards", "Age", "Edu
 print(xtable(pls_matrix_coef, caption = 'PLS Coefficients',digits = c(0,5)), comment = FALSE,type = 'latex')
 ```
 
-PLS is a supervised alternative to PCR. By comparing validation errors for different Ms, we find the best M is `r lambda_min_pls`. Comparing coefficients of PLS to OLS coefficients, we can see they are quite different to each other.
+PLS is a supervised alternative to PCR. By comparing validation errors for different Ms, we find the best M is `r lambda_min_pls`. Comparing coefficients of PLS to OLS coefficients, we can see they are almost same to each other.
 
 $$\includegraphics[width=250pt]{../images/cv-pls-mse-plot.png}$$
