@@ -108,33 +108,13 @@ PCR is a dimension reduction technique for regression that involves constructing
 
 $$Z_1=\sum_{j=1}^p\phi_{j1}X_j$$
 
-## Analysis
-## OLS
-
-This is coefficient table for OLS:
-```{r results= 'asis', echo = FALSE, error=FALSE, eval=TRUE}
-library(Matrix)
-library(xtable)
-load("../data/output/ols-regression.RData")
-print(xtable(ols_summary$coefficients, caption = 'OLS Coefficients',digits = c(0,5,5,5,5)), comment = FALSE,type = 'latex')
-```
+# Analysis
 
 ## OLS
 
 - Benchmark for comparison
 - Education, Gender, Martial Status and Ethnicity has big p-value， thus not statitiscally significant.
 - Income, Limit, and Rating have large and statistically significant coefficients.
-
-## Ridge
-
-This is the coefficient table for Ridge:
-```{r results= 'asis', echo = FALSE, error=FALSE, eval=TRUE}
-load("../data/output/ridge-regression.RData")
-ridge_matrix_coef <- as.matrix(ridge_coefficients)
-colnames(ridge_matrix_coef) <- "Estimates"
-print(xtable(ridge_matrix_coef, caption = 'Ridge Coefficients',digits = c(0,5)), comment = FALSE,type = 'latex')
-```
-
 
 
 ## Ridge
@@ -155,17 +135,6 @@ This is the image for ridge cross validation errors.
 
 ## Lasso
 
-This the coefficient table for Ridge:
-```{r results= 'asis', echo = FALSE, error=FALSE,eval=TRUE}
-load("../data/output/lasso-regression.RData")
-lasso_matrix_coef <- as.matrix(lasso_coefficients)
-colnames(lasso_matrix_coef) <- "Estimates"
-print(xtable(lasso_matrix_coef, caption = 'Lasso Coefficients', digits = c(0,5)), comment = FALSE,type = 'latex')
-```
-
-
-## Lasso
-
 - $\lambda$ = `r lasso_min_lambda`
 - Six of the coefficients are set to zero
 - Smaller coefficients than OLS
@@ -178,18 +147,6 @@ The graph for lasso cross-validation errors:
 	height="450px"/>
 </center>
 
-
-## PCR
-
-This is the coefficient table for PCR:
-```{r results= 'asis', echo = FALSE, error=FALSE,eval=TRUE}
-load("../data/output/pc-regression.RData")
-pcr_matrix_coef <- as.matrix(pc_coef_full)
-dimnames(pcr_matrix_coef) <- list(rownames(pcr_matrix_coef, do.NULL = FALSE, prefix = "row"),colnames(pcr_matrix_coef, do.NULL = FALSE, prefix = "col"))
-colnames(pcr_matrix_coef) <- "Estimates"
-rownames(pcr_matrix_coef) <- c("Income", "Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
-print(xtable(pcr_matrix_coef, caption = 'PCR Coefficients',digits = c(0,5)), comment = FALSE,type = 'latex')
-```
 
 
 ## PCR
@@ -205,19 +162,6 @@ This is the MSE plot for PCR:
 <img src="../images/cv-pc-mse-plot.png"
 	height="450px"/>
 </center>
-
-## PLSR
-
-This is coefficient table for PLSR:
-```{r results= 'asis', echo = FALSE, error=FALSE,eval=TRUE}
-load("../data/output/pls-regression.RData")
-pls_matrix_coef <- as.matrix(pls_coef_full)
-dimnames(pls_matrix_coef) <- list(rownames(pls_matrix_coef, do.NULL = FALSE, prefix = "row"),colnames(pls_matrix_coef, do.NULL = FALSE, prefix = "col"))
-colnames(pls_matrix_coef) <- "Estimates"
-rownames(pls_matrix_coef) <- c("Income", "Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
-print(xtable(pls_matrix_coef, caption = 'PLS Coefficients',digits = c(0,5)), comment = FALSE,type = 'latex')
-```
-
 
 ## PLSR
 
@@ -238,9 +182,11 @@ This is the MSE plot for PLSR:
 
 This is the table for MSE of all regression models:
 ```{r results= 'asis', echo = FALSE,eval=TRUE}
-MSE_five = as.matrix(c("ols" = ols_mse, "ridge" = ridge_mse, "lasso" = lasso_mse, "pcr" = pc_mse, "plsr" = pls_mse))
-colnames(MSE_five) = "MSE"
-print(xtable(MSE_five, caption = 'MSE of Five Regression Methods', digits = 5), comment = FALSE)
+library(knitr)
+names <- c("ols","ridge","lasso","pcr","plsr")
+mse <- c(ols_mse, ridge_mse, lasso_mse, pc_mse, pls_mse)
+mse.matrix <-data.frame(names,mse)
+kable(mse.matrix, caption = 'MSE of Five Regression Methods',align=c('c','c'))
 ```
 
 
@@ -254,6 +200,11 @@ print(xtable(MSE_five, caption = 'MSE of Five Regression Methods', digits = 5), 
 
 This the trendline plot for each type of regression models fit on Credit.csv:
 ```{r results= 'asis', echo = FALSE,eval=TRUE}
+library(knitr)
+library(xtable)
+scaled_credit <- read.csv("../data/datasets/scaled-credit.csv")
+scaled_credit$X <- NULL
+
 Variables <- c("Intercept", "Income","Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
 OLS <- as.vector(ols_coefficients)
 Ridge <- as.vector(ridge_coefficients)
@@ -264,7 +215,21 @@ PLSR <- as.vector(pls_coef_full)
 PLSR <- append(PLSR, 0, 0)
 
 five_matrix_coef <- data.frame(Variables, OLS, Ridge, Lasso, PCR, PLSR)
-print(xtable(five_matrix_coef, caption = 'Regression Coefficients for 5 Regression Methods', digits = 3), comment = FALSE, type = 'latex')
+
+par(mfrow = c(1,1))
+plot(five_matrix_coef[,2], xaxt = "n",xlab=" ", ylab = "Value", main = "Trend Lines of Coefficients for Five Regression Models", col = "black")
+lines(five_matrix_coef[,2], col="black", lwd=2)
+points(five_matrix_coef[,3],col= "red")
+lines(five_matrix_coef[,3],col = "red")
+points(five_matrix_coef[,4], col = "green")
+lines(five_matrix_coef[,4],col = "green")
+points(five_matrix_coef[,5], col = "yellow")
+lines(five_matrix_coef[,5],col = "yellow")
+points(five_matrix_coef[,6], col = "blue")
+lines(five_matrix_coef[,6],col = "blue")
+axis(1, at=1:12, labels=Variables, las=2,cex.axis=0.6)
+legend(10,0.9,c('OLS','Ridge','Lasso','PCR','PLSR'), lty = c(1,1,1,1,1), lwd = c(2.5,2.5,2.5,2.5,2.5), col = c("black","red","green","yellow","blue"),merge = T)
+abline(h = 0, lty = 3)
 ```
 
 
