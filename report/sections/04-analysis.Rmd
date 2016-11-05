@@ -3,7 +3,7 @@
 
 
 This is the table of regression coefficients for all methods.
-```{r results= 'asis', echo = FALSE}
+```{r results= 'asis', echo = FALSE, message=FALSE, warning=FALSE}
 Variables <- c("Intercept", "Income","Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
 OLS <- as.vector(ols_coefficients)
 Ridge <- as.vector(ridge_coefficients)
