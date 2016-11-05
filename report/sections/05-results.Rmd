@@ -7,7 +7,7 @@ colnames(MSE_five) = "MSE"
 print(xtable(MSE_five, caption = 'MSE of Five Regression Methods', digits = 5), comment = FALSE)
 ```
 
-From the MSE table above, we find that all the MSE are very close to each other and the maximum difference between the MSE of ridge and that of lasso. The regression with the smallest MSE is lasso regression, where MSE = `r lasso_mse`. As lasso has the smallest MSE, then we can conlcude that lasso is the best fitted model for the credit data set in this case. Aditionally, the one with the largest MSE is Ridge regression, where MSE is euqual to `r ridge_mse`. this means tha ridge regression provides the worst fitted model for the credit dataset.
+From the MSE table above, we find that all the MSE are very close to each other and the maximum difference between the MSE of ols and that of lasso. The regression with the smallest MSE is ols regression, where MSE = `r ols_mse`. As ols has the smallest MSE, then we can conlcude that ols is the best fitted model for the credit data set in this case. Aditionally, the one with the largest MSE is lasso regression, where MSE is euqual to `r lasso_mse`. this means tha lasso regression provides the worst fitted model for the credit dataset.This is a very interesting finding that extended approaches get worse model than ols regression. This is may because we do not have a very large number of variables or low ratio of number of observations to number of variables. Moreover, it is also possible that preditors ae highly correlated, thus lasso does not yeild good results in presense of high collinearity, results in the worst fit model.
 
 Furthermore, we also include a trendline plot in which the official coefficients are compared.
 
@@ -28,6 +28,7 @@ legend(10,0.9,c('OLS','Ridge','Lasso','PCR','PLSR'), lty = c(1,1,1,1,1), lwd = c
 abline(h = 0, lty = 3)
 ```
 
-This trendline plot also allows us to compare how each type of regression models fit a model to the credit data set. We can see from the graph that the lines of PLSR and PCR are very close to each other, and lasso has the least variance with OLS generally. Also, for variables like `Income`, it is almost same in each model, however, for varibles like `Rating` and `Limit`, these estimates vary widely in different regression methods.
+This trendline plot also allows us to compare how each type of regression models fit a model to the credit data set. We can see from the graph that the lines of PLSR, PCR and OLS are very close to each other, and even overlap. Lasso has the biggest variance with OLS generally. Ridge generally has smaller coefficients with OLS. Moreover, for variables like `Income`, it is almost same in each model, however, for varibles like `Rating` and `Limit`, these estimates vary widely in different regression methods.
+
 
 
