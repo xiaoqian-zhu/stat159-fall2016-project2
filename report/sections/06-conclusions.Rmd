@@ -1,3 +1,4 @@
+
 # Conclusions
 
 In conclusion, in this project, we fitted 5 types of regression models on the dataset `credit.csv` and we found that even though the MSE from all the regression models are quite similar, the lasso regression model generated the lowest MSE, at `r lasso_mse`. lasso regression also seems to have the least variance with OLS as shown from the trendline plot. This seems to indicate that lasso regression model is the best fitting model for predicting `balance` from the predictor variables in this dataset. In addition, the ridge regression model generated the highest MSE, indicating that it might be the worst fitting model.

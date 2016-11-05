@@ -29,3 +29,5 @@ abline(h = 0, lty = 3)
 ```
 
 This trendline plot also allows us to compare how each type of regression models fit a model to the credit data set. We can see from the graph that the lines of PLSR and PCR are very close to each other, and lasso has the least variance with OLS generally. Also, for variables like `Income`, it is almost same in each model, however, for varibles like `Rating` and `Limit`, these estimates vary widely in different regression methods.
+
+
