@@ -48,8 +48,7 @@ session: code/scripts/session-info-script.R
 	cd code/scripts; Rscript session-info-script.R
 
 #slides:
-slides: slides/slides.html
-slides/slidess.html: 
+slides: slides/slides.Rmd
 	Rscript -e "library(rmarkdown); render('slides/slides.Rmd')"
 
 
