@@ -13,8 +13,6 @@ load("../data/output/ridge-regression.RData")
 load("../data/output/pc-regression.RData")
 load("../data/output/pls-regression.RData")
 
-ridge_coefficients
-
 # packages
 library(xtable)
 library(png)

@@ -1,0 +1,46 @@
+This is the output of the ten-fold cross validation using Lasso regression
+ on the training data set
+Data: 	X dimension: 300 11 
+	Y dimension: 300 1
+Fit method: kernelpls
+Number of components considered: 11
+
+VALIDATION: RMSEP
+Cross-validated using 10 random segments.
+       (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps
+CV          0.9968   0.5367   0.3777   0.2322   0.2204   0.2195   0.2194
+adjCV       0.9968   0.5361   0.3737   0.2253   0.2195   0.2191   0.2191
+       7 comps  8 comps  9 comps  10 comps  11 comps
+CV      0.2193   0.2190   0.2202    0.2189    0.2189
+adjCV   0.2190   0.2187   0.2196    0.2184    0.2185
+
+TRAINING: % variance explained
+         1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps  8 comps
+X          23.81    31.12    35.97    45.23    56.98    66.97    74.45    81.15
+Balance    71.97    87.52    95.30    95.42    95.43    95.43    95.43    95.43
+         9 comps  10 comps  11 comps
+X          84.15     90.88    100.00
+Balance    95.47     95.49     95.49
+NULL
+
+This is the minimum lambda that represents the "best" model
+[1] 10
+
+This is the MSE of the testing data set when the training model is implemented
+[1] 0.04753912
+
+These are the official coefficients calcualted using the "best" model lambda and the full datset, , 10 comps
+
+                        Balance
+Income             -0.598169520
+Limit               0.958435942
+Rating              0.382480016
+Cards               0.052852662
+Age                -0.023026921
+Education          -0.007482106
+GenderFemale       -0.011628232
+StudentYes          0.278162866
+MarriedYes         -0.009084754
+EthnicityAsian      0.015951453
+EthnicityCaucasian  0.010998383
+

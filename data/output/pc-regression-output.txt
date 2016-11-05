@@ -1,0 +1,46 @@
+Output of 10-fold Cross-Validation using PC Regression on the Train Data Set
+Data: 	X dimension: 300 11 
+	Y dimension: 300 1
+Fit method: svdpc
+Number of components considered: 11
+
+VALIDATION: RMSEP
+Cross-validated using 10 random segments.
+       (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps  6 comps
+CV          0.9968   0.6123   0.6182   0.6199   0.6184   0.5895   0.5858
+adjCV       0.9968   0.6107   0.6173   0.6192   0.6243   0.5884   0.5817
+       7 comps  8 comps  9 comps  10 comps  11 comps
+CV      0.5742   0.5781   0.5816    0.2243    0.2232
+adjCV   0.5726   0.5767   0.5804    0.2237    0.2225
+
+TRAINING: % variance explained
+         1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps  8 comps
+X          24.13    39.10    50.39    60.64    70.31    78.97    87.26    94.20
+Balance    62.57    62.57    62.68    62.78    66.94    68.22    69.74    69.83
+         9 comps  10 comps  11 comps
+X          97.66     99.98    100.00
+Balance    69.86     95.43     95.49
+NULL
+
+Minimum Lambda that will help us find Best Model
+[1] 11
+
+PC MSE of Test Data Set
+[1] 0.04747221
+
+Official Coefficients of Full Model using PC Regression
+, , 11 comps
+
+                        Balance
+Income             -0.598171486
+Limit               0.958438722
+Rating              0.382478949
+Cards               0.052864969
+Age                -0.023033397
+Education          -0.007469459
+GenderFemale       -0.011593092
+StudentYes          0.278154853
+MarriedYes         -0.009054196
+EthnicityAsian      0.015950671
+EthnicityCaucasian  0.011005286
+
