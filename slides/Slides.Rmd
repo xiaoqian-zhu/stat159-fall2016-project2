@@ -4,6 +4,22 @@ author: "Shirley Jin, Xiaoqian Zhu"
 date: "November 4, 2016"
 output: ioslides_presentation
 ---
+```{r, echo = FALSE, include = FALSE, eval=TRUE}
+# load the necessary data files and required packages
+scaled_credit <- read.csv("../data/datasets/scaled-credit.csv")
+load("../data/output/ols-regression.RData")
+load("../data/output/lasso-regression.RData")
+load("../data/output/ridge-regression.RData")
+load("../data/output/pc-regression.RData")
+load("../data/output/pls-regression.RData")
+
+# packages
+library(xtable)
+library(png)
+library(grid)
+library(ggplot2)
+library(reshape)
+```
 
 ## Introduction
 - In this project, we will recreate the predictive modeling process in Chapter 6: Linear Model Selection and Regularization of the book [**An Introduction to Statistical Learning**](http://www-bcf.usc.edu/~gareth/ISL/).
