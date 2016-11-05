@@ -20,6 +20,7 @@ library(grid)
 library(ggplot2)
 library(reshape)
 library(Matrix)
+library(knitr)
 ```
 
 ## Introduction
@@ -111,7 +112,7 @@ $$Z_1=\sum_{j=1}^p\phi_{j1}X_j$$
 ## OLS
 
 This is coefficient table for OLS:
-```{r results= 'asis', echo = FALSE, error=FALSE}
+```{r results= 'asis', echo = FALSE, error=FALSE, eval=TRUE}
 library(Matrix)
 library(xtable)
 load("../data/output/ols-regression.RData")
@@ -127,7 +128,7 @@ print(xtable(ols_summary$coefficients, caption = 'OLS Coefficients',digits = c(0
 ## Ridge
 
 This is the coefficient table for Ridge:
-```{r results= 'asis', echo = FALSE, error=FALSE}
+```{r results= 'asis', echo = FALSE, error=FALSE, eval=TRUE}
 load("../data/output/ridge-regression.RData")
 ridge_matrix_coef <- as.matrix(ridge_coefficients)
 colnames(ridge_matrix_coef) <- "Estimates"
@@ -146,13 +147,16 @@ print(xtable(ridge_matrix_coef, caption = 'Ridge Coefficients',digits = c(0,5)),
 ## Ridge
 
 This is the image for ridge cross validation errors.
-$$\includegraphics[width=250pt]{../images/ridge-cross-validation-errors.png}$$
+<center>
+<img src="../images/ridge-cross-validation-errors.png"
+	height="450px"/>
+</center>
 
 
 ## Lasso
 
 This the coefficient table for Ridge:
-```{r results= 'asis', echo = FALSE, error=FALSE}
+```{r results= 'asis', echo = FALSE, error=FALSE,eval=TRUE}
 load("../data/output/lasso-regression.RData")
 lasso_matrix_coef <- as.matrix(lasso_coefficients)
 colnames(lasso_matrix_coef) <- "Estimates"
@@ -169,13 +173,16 @@ print(xtable(lasso_matrix_coef, caption = 'Lasso Coefficients', digits = c(0,5))
 ## Lasso
 
 The graph for lasso cross-validation errors:
-$$\includegraphics[width=250pt]{../images/lasso-cross-validation-errors.png}$$
+<center>
+<img src="../images/lasso-cross-validation-errors.png"
+	height="450px"/>
+</center>
 
 
 ## PCR
 
 This is the coefficient table for PCR:
-```{r results= 'asis', echo = FALSE, error=FALSE}
+```{r results= 'asis', echo = FALSE, error=FALSE,eval=TRUE}
 load("../data/output/pc-regression.RData")
 pcr_matrix_coef <- as.matrix(pc_coef_full)
 dimnames(pcr_matrix_coef) <- list(rownames(pcr_matrix_coef, do.NULL = FALSE, prefix = "row"),colnames(pcr_matrix_coef, do.NULL = FALSE, prefix = "col"))
@@ -194,12 +201,15 @@ print(xtable(pcr_matrix_coef, caption = 'PCR Coefficients',digits = c(0,5)), com
 ## PCR
 
 This is the MSE plot for PCR:
-$$\includegraphics[width=250pt]{../images/cv-pc-mse-plot.png}$$
+<center>
+<img src="../images/cv-pc-mse-plot.png"
+	height="450px"/>
+</center>
 
 ## PLSR
 
 This is coefficient table for PLSR:
-```{r results= 'asis', echo = FALSE, error=FALSE}
+```{r results= 'asis', echo = FALSE, error=FALSE,eval=TRUE}
 load("../data/output/pls-regression.RData")
 pls_matrix_coef <- as.matrix(pls_coef_full)
 dimnames(pls_matrix_coef) <- list(rownames(pls_matrix_coef, do.NULL = FALSE, prefix = "row"),colnames(pls_matrix_coef, do.NULL = FALSE, prefix = "col"))
@@ -219,13 +229,15 @@ print(xtable(pls_matrix_coef, caption = 'PLS Coefficients',digits = c(0,5)), com
 ## PLSR
 
 This is the MSE plot for PLSR:
-$$\includegraphics[width=250pt]{../images/cv-pls-mse-plot.png}$$
-
+<center>
+<img src="../images/cv-pls-mse-plot.png"
+	height="450px"/>
+</center>
 
 ## Results
 
 This is the table for MSE of all regression models:
-```{r results= 'asis', echo = FALSE}
+```{r results= 'asis', echo = FALSE,eval=TRUE}
 MSE_five = as.matrix(c("ols" = ols_mse, "ridge" = ridge_mse, "lasso" = lasso_mse, "pcr" = pc_mse, "plsr" = pls_mse))
 colnames(MSE_five) = "MSE"
 print(xtable(MSE_five, caption = 'MSE of Five Regression Methods', digits = 5), comment = FALSE)
@@ -241,7 +253,7 @@ print(xtable(MSE_five, caption = 'MSE of Five Regression Methods', digits = 5), 
 ## Results
 
 This the trendline plot for each type of regression models fit on Credit.csv:
-```{r results= 'asis', echo = FALSE}
+```{r results= 'asis', echo = FALSE,eval=TRUE}
 Variables <- c("Intercept", "Income","Limit", "Rating", "Cards", "Age", "Education", "GenderFemale", "StudentYes", "MarriedYes", "EthnicityAsian", "EthnicityCaucasian")
 OLS <- as.vector(ols_coefficients)
 Ridge <- as.vector(ridge_coefficients)
